@@ -1,10 +1,3 @@
-//
-//  Note.swift
-//  Remember
-//
-//  Created by Natali Queiróz on 06/08/26.
-//
-
 import Foundation
 
 struct Note: Identifiable {
