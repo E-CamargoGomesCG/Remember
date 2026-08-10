@@ -1,10 +1,3 @@
-//
-//  NotesImportViewModel.swift
-//  Remember
-//
-//  Created by Natali Queiróz on 08/08/26.
-//
-
 import Foundation
 import AppKit
 import Observation
@@ -12,11 +5,12 @@ import Observation
 @Observable
 final class NotesImportViewModel {
 
+    private let searchService = NoteSearchService()
     private let fileSystemService = FileSystemService()
     private let languageModelService = LanguageModelService()
 
     var notes: [Note] = []
-
+    var fontes: [Note] = []
     var folderName = "Nenhuma pasta"
 
     var question = ""
@@ -42,7 +36,7 @@ final class NotesImportViewModel {
             do {
 
                 notes = try fileSystemService.loadNotes(from: url)
-
+                searchService.index(notes: notes)
                 print("Notas importadas: \(notes.count)")
 
             } catch {
@@ -72,9 +66,11 @@ final class NotesImportViewModel {
 
         do {
 
-            answer = try await languageModelService.answer(
-                question: question,
-                using: notes
+            let relevantes = searchService.search(query: question, limite: 3)
+                   fontes = relevantes
+                   answer = try await languageModelService.answer(
+                       question: question,
+                       using: relevantes
             )
 
         } catch {

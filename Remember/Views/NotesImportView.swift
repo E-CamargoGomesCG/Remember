@@ -1,101 +1,46 @@
 import SwiftUI
 
 struct NotesImportView: View {
-
-    @State private var viewModel = NotesImportViewModel()
+    @Bindable var viewModel: NotesImportViewModel
 
     var body: some View {
-        HStack(spacing: 0) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text("REMEMBER")
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.secondary)
-                    .tracking(1.2)
-                    .padding(.horizontal, 12)
-                    .padding(.bottom, 8)
+        VStack(spacing: 16) {
+            Spacer()
 
-                SidebarItem(icon: "magnifyingglass", title: "Perguntar", isActive: true)
-                SidebarItem(icon: "doc.text", title: "Minhas Notas", isActive: false)
+            Image(systemName: "folder")
+                .font(.system(size: 44, weight: .light))
+                .foregroundStyle(.secondary)
+                .frame(width: 120, height: 120)
+                .background(.background)
+                .clipShape(RoundedRectangle(cornerRadius: 24))
+                .shadow(color: .black.opacity(0.06), radius: 12, y: 4)
 
-                Spacer()
+            Text("Escolha sua pasta de anotações")
+                .font(.system(size: 28, weight: .bold))
+                .multilineTextAlignment(.center)
 
-                HStack(spacing: 6) {
-                    Circle()
-                        .fill(.secondary)
-                        .frame(width: 6, height: 6)
+            Text("O remember lê seus arquivos .md localmente.\nNada sai do seu Mac.")
+                .font(.body)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
 
-                    Text(viewModel.folderName)
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: 8))
-                .padding(.horizontal, 8)
+            Button {
+                viewModel.selecionarVault()
+            } label: {
+                Text("Selecionar pasta")
+                    .font(.headline)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 28)
+                    .padding(.vertical, 12)
+                    .background(Color(white: 0.10), in: RoundedRectangle(cornerRadius: 12))
             }
-            .padding(.vertical, 16)
-            .padding(.horizontal, 8)
-            .frame(width: 240)
-            .background(.regularMaterial)
+            .buttonStyle(.plain)
+            .padding(.top, 8)
 
-            VStack(spacing: 16) {
-                Spacer()
+            Text("⌘O").font(.caption).foregroundStyle(.tertiary)
 
-                Image(systemName: "folder")
-                    .font(.system(size: 44, weight: .light))
-                    .foregroundStyle(.secondary)
-                    .frame(width: 120, height: 120)
-                    .background(.background)
-                    .clipShape(RoundedRectangle(cornerRadius: 24))
-                    .shadow(color: .black.opacity(0.06), radius: 12, y: 4)
-
-                Text("Escolha sua pasta de anotações")
-                    .font(.system(size: 28, weight: .bold))
-                    .multilineTextAlignment(.center)
-
-                Text("O remember lê seus arquivos .md localmente.\nNada sai do seu Mac.")
-                    .font(.body)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-
-                Button {
-                    viewModel.selecionarVault()
-                } label: {
-                    Text("Selecionar pasta")
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 28)
-                        .padding(.vertical, 12)
-                        .background(.black, in: RoundedRectangle(cornerRadius: 12))
-                }
-                .buttonStyle(.plain)
-                .padding(.top, 8)
-
-                Text("Notas importadas: \(viewModel.notes.count)")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-
-                Text("⌘O")
-                    .font(.caption)
-                    .foregroundStyle(.tertiary)
-
-                Spacer()
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(
-                LinearGradient(
-                    colors: [Color(white: 0.98), Color(white: 0.96)],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-            )
+            Spacer()
         }
-        .frame(minWidth: 800, minHeight: 600)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-}
-
-#Preview {
-    NotesImportView()
 }

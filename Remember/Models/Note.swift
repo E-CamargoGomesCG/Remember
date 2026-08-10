@@ -1,6 +1,6 @@
 import Foundation
 
-struct Note: Identifiable {
+struct Note: Identifiable, Hashable {
     let id: UUID
     let title: String
     let content: String
