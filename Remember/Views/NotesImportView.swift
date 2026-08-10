@@ -1,6 +1,11 @@
 import SwiftUI
 
+
 struct NotesImportView: View {
+    
+    @State private var viewModel = NotesImportViewModel()
+    
+    
     var body: some View {
         HStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 4) {
@@ -21,7 +26,7 @@ struct NotesImportView: View {
                     Circle()
                         .fill(.secondary)
                         .frame(width: 6, height: 6)
-                    Text("Nenhuma pasta")
+                    Text(viewModel.folderName)
                         .font(.callout)
                         .foregroundStyle(.secondary)
                 }
@@ -51,12 +56,14 @@ struct NotesImportView: View {
                     .font(.system(size: 28, weight: .bold))
                     .multilineTextAlignment(.center)
 
-                Text("O remem lê seus arquivos .md localmente.\nNada sai do seu Mac.")
+                Text("O remember lê seus arquivos .md localmente.\nNada sai do seu Mac.")
                     .font(.body)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
 
-                Button(action: selecionarPasta) {
+                Button {
+                    viewModel.selecionarVault()
+                } label: {
                     Text("Selecionar pasta")
                         .font(.headline)
                         .foregroundStyle(.white)
@@ -66,6 +73,10 @@ struct NotesImportView: View {
                 }
                 .buttonStyle(.plain)
                 .padding(.top, 8)
+                
+                Text("Notas importadas: \(viewModel.notes.count)")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
 
                 Text("⌘O")
                     .font(.caption)
@@ -85,8 +96,6 @@ struct NotesImportView: View {
         .frame(minWidth: 800, minHeight: 600)
     }
 
-    private func selecionarPasta() {
-    }
 }
 
 #Preview {
