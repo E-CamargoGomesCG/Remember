@@ -1,11 +1,9 @@
 import SwiftUI
 
-
 struct NotesImportView: View {
-    
+
     @State private var viewModel = NotesImportViewModel()
-    
-    
+
     var body: some View {
         HStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 4) {
@@ -26,6 +24,7 @@ struct NotesImportView: View {
                     Circle()
                         .fill(.secondary)
                         .frame(width: 6, height: 6)
+
                     Text(viewModel.folderName)
                         .font(.callout)
                         .foregroundStyle(.secondary)
@@ -73,7 +72,7 @@ struct NotesImportView: View {
                 }
                 .buttonStyle(.plain)
                 .padding(.top, 8)
-                
+
                 Text("Notas importadas: \(viewModel.notes.count)")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -95,7 +94,6 @@ struct NotesImportView: View {
         }
         .frame(minWidth: 800, minHeight: 600)
     }
-
 }
 
 #Preview {
