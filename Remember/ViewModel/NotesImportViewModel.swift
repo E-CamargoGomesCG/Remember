@@ -46,12 +46,14 @@ final class NotesImportViewModel {
                         
                         do {
                             
-                            let summary = try await languageModelService.summarize(note: firstNote)
-                            
-                            print("========== RESUMO ==========")
-                            print(summary)
-                            print("============================")
-                            
+                            let answer = try await languageModelService.answer(
+                                question: "O que são Foundation Models?",
+                                using: notes
+                            )
+
+                            print("========== RESPOSTA ==========")
+                            print(answer)
+                            print("==============================")
                         } catch {
                             
                             print("Erro Foundation Models:")
